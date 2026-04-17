@@ -1,0 +1,19 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local notes / agent state
+CURRENT_PROGRESS.md
+RECORD.md
+NEXT_PHASE_TASK.md
+
+# Local tool directories
+.codex/
