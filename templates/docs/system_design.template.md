@@ -1,7 +1,10 @@
 # System Design
 
+## Role
+Engineer-facing architecture and implementation design.
+
 ## Overview
-- 
+-
 
 ## Main Components
 - 
@@ -16,4 +19,4 @@
 - 
 
 ## Risks / Tradeoffs
-- 
+-

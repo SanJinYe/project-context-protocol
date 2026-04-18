@@ -20,6 +20,7 @@ It is responsible for:
 - classifying publish intent
 - refreshing the public-facing surface
 - keeping internal working records aligned with implemented reality
+- enforcing the `RECORD.md` -> `CURRENT_PROGRESS.md` write order
 - preparing commit / push only when requested
 
 It does not assume public release, and it does not imply `git init`.
@@ -39,9 +40,10 @@ Handle these files explicitly:
 
 - `README.md`: public-facing project summary
 - `.gitignore`: ignore and publish boundary
+- `AGENTS.md`: stable project-level agent behavior contract; local-only by default
 - `CURRENT_PROGRESS.md`: only current progress snapshot
-- `RECORD.md`: full implementation / experiment record
-- `NEXT_PHASE_TASK.md`: long-term implementation archive
+- `RECORD.md`: append-only implementation / experiment / rollback record
+- `IMPLEMENTATION_PLAN.md`: long-lived implementation plan
 - `docs/requirements.md`: local requirements source of truth
 - `docs/system_design.md`: local design source of truth
 
@@ -56,8 +58,8 @@ Handle these files explicitly:
 1. Inspect the current repo state.
    - If this is a git repo, run `git status --short`, `git branch --show-current`, and inspect remotes as needed.
    - Read `README.md` and `.gitignore`.
-   - Read `CURRENT_PROGRESS.md` and `RECORD.md` when present.
-   - Read `NEXT_PHASE_TASK.md` only when the long-term plan may have changed.
+   - Read `AGENTS.md`, `CURRENT_PROGRESS.md`, and `RECORD.md` when present.
+   - Read `IMPLEMENTATION_PLAN.md` only when the long-term plan may have changed.
    - Read `docs/` only when requirements or design changed materially, or when the user explicitly asks for sync.
 
 2. Classify the repo mode before touching git.
@@ -69,21 +71,24 @@ Handle these files explicitly:
    - Rewrite `README.md` so it describes the shipped product directly.
    - Keep `README.md` self-contained.
    - Keep internal planning and agent-state files local-only by default:
+     - `AGENTS.md`
      - `CURRENT_PROGRESS.md`
      - `RECORD.md`
-     - `NEXT_PHASE_TASK.md`
+     - `IMPLEMENTATION_PLAN.md`
      - `docs/requirements.md`
      - `docs/system_design.md`
-     - `AGENTS.md`
      - `.codex/`
      - `.vscode/`
    - Do not hide tests by default; decide based on the repo's actual publish policy.
    - Add or update `LICENSE` only when the repo is intended to be public or open source.
 
 4. Update local project records.
-   - Update `CURRENT_PROGRESS.md` to reflect the latest real product state.
-   - Update `RECORD.md` at the end of the session.
-   - Update `NEXT_PHASE_TASK.md` only when the long-term implementation plan, major design, or concrete phase breakdown changed.
+   - Update `RECORD.md` first at the end of the session.
+   - Append the latest experiment, validation, rollback, decision, conclusion, and next-step entry to `RECORD.md`.
+   - Update `CURRENT_PROGRESS.md` after that so it reflects the latest real product state.
+   - Make `CURRENT_PROGRESS.md` `Immediate Next Step` match the latest `RECORD.md` entry conclusion / next step.
+   - Update `AGENTS.md` only when the stable project-level behavior contract changed, or stale / misleading rules must be removed.
+   - Update `IMPLEMENTATION_PLAN.md` only when the long-term implementation plan, major design, or requirements changed materially.
    - Update `docs/system_design.md` only when architecture or interfaces changed.
    - Update `docs/requirements.md` only when scope or expected behavior changed materially.
 
@@ -102,7 +107,10 @@ Handle these files explicitly:
 
 - `update-repo` does not imply `git init`.
 - `update-repo` does not force public release.
+- Keep `AGENTS.md` short, stable, and local-only by default.
+- Remove stale or misleading `AGENTS.md` rules instead of preserving them.
 - Keep internal planning files local by default.
+- Do not edit `IMPLEMENTATION_PLAN.md` for normal progress if requirements did not change.
 - Prefer KISS cleanup over repo-process ceremony.
 - Do not silently stage unrelated user changes.
 - Treat repo visibility and project maturity as related but separate concerns.
@@ -115,3 +123,4 @@ git branch --show-current
 git diff --cached --check
 git commit -m "<message>"
 git push origin <branch>
+```

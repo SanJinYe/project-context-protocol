@@ -1,22 +1,29 @@
 # Record
 
 ## Role
-Append-only implementation / experiment / decision log.
+Append-only implementation / experiment / rollback log.
+Never rewrite old entries.
 
 ---
 
-## 2026-04-17
-### Done
-- 
+## 2026-04-17 Session
+### Objective
+-
 
-### Findings
-- 
+### Changes
+-
 
-### Problems
-- 
+### Validation
+-
+
+### Problems / Rollbacks
+-
 
 ### Decisions
-- 
+-
 
-### Next
-- 
+### Conclusion
+-
+
+### Next Step
+-

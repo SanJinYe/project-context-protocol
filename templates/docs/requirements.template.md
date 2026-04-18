@@ -1,7 +1,10 @@
 # Requirements
 
+## Role
+Engineer-facing product scope and intent.
+
 ## Goal
-- 
+-
 
 ## In Scope
 - 
@@ -13,4 +16,4 @@
 - 
 
 ## Success Criteria
-- 
+-
